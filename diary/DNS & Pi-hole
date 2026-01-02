@@ -1,0 +1,71 @@
+# DNS & Pi-hole – Zentrale Namensauflösung im Heimnetz
+
+
+Ziel dieses Abschnitts war es, die DNS-Auflösung im Heimnetz **zentral zu steuern und nachvollziehbar zu machen**.  
+Insbesondere wollte ich verstehen, wie DNS-Anfragen von verschiedenen Endgeräten entstehen und wie sie zuverlässig über einen eigenen DNS-Server (Pi-hole) geleitet werden können.
+
+---
+
+
+DNS (Domain Name System) ist ein grundlegender Netzwerkdienst, der Domainnamen in IP-Adressen auflöst.  
+In typischen Heimnetzen wird diese Aufgabe vom Router übernommen, wodurch DNS für den Nutzer meist unsichtbar bleibt.
+
+Mit Pi-hole sollte DNS bewusst aus dieser „Blackbox“ herausgelöst werden, um:
+- DNS-Anfragen sichtbar zu machen
+- Tracking- und Werbedomains zu blockieren
+- das Verhalten einzelner Clients besser zu verstehen
+
+---
+
+
+Pi-hole wurde auf einem Raspberry Pi als zentraler DNS-Server installiert.  
+Die Grundkonfiguration funktionierte erwartungsgemäß, und erste DNS-Anfragen konnten erfolgreich im Query Log von Pi-hole beobachtet werden.
+
+Um Pi-hole zu nutzen, wurden auf einzelnen Geräten die DNS-Server manuell auf die IP-Adresse des Raspberry Pi gesetzt.
+
+---
+
+
+Bereits nach kurzer Zeit zeigte sich, dass sich unterschiedliche Geräte im Netzwerk **nicht einheitlich verhielten**:
+- Einige Clients nutzten Pi-hole zuverlässig
+- Andere Geräte umgingen Pi-hole teilweise oder vollständig
+- Insbesondere Geräte mit aktivem IPv6 verhielten sich unerwartet
+
+Diese Unterschiede waren im Pi-hole Query Log deutlich sichtbar.
+
+---
+
+
+Trotz gesetztem DNS auf Client-Seite nutzten einige Geräte weiterhin den vom Router verteilten DNS-Server.  
+Dadurch war keine verlässliche, zentrale DNS-Kontrolle möglich.
+
+Dieses Verhalten war zunächst schwer erklärbar, da die Konfiguration auf den Endgeräten korrekt erschien.
+
+---
+
+
+Bei der Analyse stellte sich heraus, dass der vorhandene Router DNS-Informationen nicht ausschließlich über IPv4 (DHCP), sondern zusätzlich über IPv6 Router Advertisements (SLAAC) verteilte.
+
+Einige Endgeräte priorisierten diese IPv6-basierten DNS-Informationen gegenüber den manuell gesetzten DNS-Servern.  
+Dadurch wurde Pi-hole in bestimmten Situationen umgangen, ohne dass dies auf den Clients offensichtlich war.
+
+---
+
+
+Um eine stabile und reproduzierbare Basis für das Home-Lab zu schaffen, wurde entschieden:
+- DNS zunächst zuverlässig über IPv4 zu steuern
+- die Netzwerkinfrastruktur grundlegend zu überarbeiten
+- einen eigenen Router einzusetzen, der vollständige Kontrolle über DHCP, DNS und IPv6-Einstellungen ermöglicht
+
+Diese Entscheidung wurde bewusst getroffen, um Debugging und weitere Experimente nicht durch unvorhersehbares Router-Verhalten zu erschweren.
+
+---
+
+
+Durch diese Phase habe ich insbesondere gelernt:
+- wie zentral DNS für den Betrieb eines Netzwerks ist
+- wie Router DNS-Informationen über verschiedene Mechanismen verteilen
+- welche Rolle IPv6 SLAAC und Router Advertisements spielen
+- warum zentrale Netzwerkkontrolle ohne Zugriff auf den Router nur eingeschränkt möglich ist
+
+Dieses Kapitel hat mein Verständnis für Netzwerkinfrastruktur deutlich vertieft und bildet die Grundlage für weitere Schritte im Home-Lab.
