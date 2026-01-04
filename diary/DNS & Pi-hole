@@ -1,3 +1,4 @@
+02.01.2026
 # DNS & Pi-hole – Zentrale Namensauflösung im Heimnetz
 
 
@@ -69,3 +70,40 @@ Durch diese Phase habe ich insbesondere gelernt:
 - warum zentrale Netzwerkkontrolle ohne Zugriff auf den Router nur eingeschränkt möglich ist
 
 Dieses Kapitel hat mein Verständnis für Netzwerkinfrastruktur deutlich vertieft und bildet die Grundlage für weitere Schritte im Home-Lab.
+
+
+04.01.2026
+Nutzung von Pi-hole über WireGuard
+
+Pi-hole wird primär im Heimnetz als zentraler DNS-Server genutzt.
+Zusätzlich ist Pi-hole über eine WireGuard-Verbindung erreichbar.
+
+Dabei wird bewusst ein Split-Tunnel verwendet:
+- DNS- und Heimnetz-Traffic über VPN
+- Internet-Traffic direkt (Mobilfunk / WLAN)
+
+Vorteile:
+- Stabile Internetverbindung unterwegs
+- Zugriff auf Pi-hole-UI und Logs von überall
+- Keine Full-Tunnel-NAT-Probleme am Router
+
+## Einschränkungen und Ausblick
+
+Aktuell wird Pi-hole ausschließlich innerhalb des Heimnetzes genutzt.
+Bei einer aktiven WireGuard-Verbindung (Split-Tunnel) werden nur
+Zugriffe auf interne Ressourcen über das VPN geleitet.
+
+Das bedeutet:
+- Pi-hole filtert DNS-Anfragen **nur im Heimnetz**
+- Unterwegs (Mobilfunk / fremde WLANs) erfolgt **keine Filterung des Internet-Traffics**
+- Diese Einschränkung ist **bewusst gewählt**, um ein stabiles VPN ohne Full-Tunnel-NAT zu gewährleisten
+
+Geplante Erweiterung:
+- Ergänzung eines separaten WireGuard-Setups auf dem Raspberry Pi
+- Nutzung als optionales Full-Tunnel-VPN
+- Ziel: Werbe- und Tracking-Filterung auch unterwegs
+
+
+Eingesetzte IPs:
+- Pi-hole: 192.168.0.102
+- VPN-Netz: 10.5.5.0/24
