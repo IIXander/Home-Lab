@@ -1,3 +1,14 @@
+## 🧱 Aktive Services (Docker)
+
+| Service        | Zweck | Image | Status |
+|---------------|------|-------|--------|
+| nginx-proxy   | Reverse Proxy & TLS Termination | jc21/nginx-proxy-manager | running |
+| Pi-hole       | Netzwerkweites DNS-Filtering | pihole/pihole | paused |
+| Unbound       | Rekursiver DNS Resolver | klutchell/unbound | running |
+| Vaultwarden   | Self-hosted Password Manager | vaultwarden/server | healthy |
+| Portainer     | Container Management UI | portainer/portainer-ce | running |
+
+
 # Home-Lab – Netzwerk & Self-Hosting
 
 Dieses Repository dokumentiert den Aufbau und die Weiterentwicklung
