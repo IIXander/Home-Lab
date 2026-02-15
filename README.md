@@ -7,6 +7,8 @@
 | Unbound       | Rekursiver DNS Resolver | klutchell/unbound | running |
 | Vaultwarden   | Self-hosted Password Manager | vaultwarden/server | healthy |
 | Portainer     | Container Management UI | portainer/portainer-ce | running |
+| Uptime Kuma | Service Monitoring & Status Checks | louislam/uptime-kuma | running |
+
 
 
 # Home-Lab – Netzwerk & Self-Hosting
@@ -23,11 +25,18 @@ Experimentieren, systematisches Troubleshooting und Dokumentation
 aufzubauen.
 
 ## Aktueller Fokus
-- Zentrales DNS-Filtering mit Pi-hole
+
+- Betrieb öffentlich erreichbarer Self-Hosted Services
+- Monitoring und Verfügbarkeitsprüfung mit Uptime Kuma
 - Analyse von IPv4- und IPv6-Verhalten im Heimnetz
 - Verständnis von DHCP, SLAAC und Router Advertisements
+- Aufbau reproduzierbarer Container-Infrastruktur
 
 ## Geplante nächste Schritte
-- Router-basierte DNS-Verteilung für das gesamte Netzwerk
-- VPN-Zugriff (WireGuard)
-- Containerisierte Dienste mit Docker
+
+- Migration bestehender Container zu Docker Compose
+- VPN-Zugriff via WireGuard für sicheren Remote-Zugang
+- Automatisierte Backups der Container-Daten
+- Erweiterung des Monitorings (Alerts / Notifications)
+- Deployment identischer Infrastruktur auf VPS/Cloud
+
